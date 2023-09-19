@@ -15,8 +15,6 @@
 
             <h3>Account Deletation</h3>
 
-            <br>
-
             <form method="POST">
 
                 {% csrf_token %}
@@ -28,7 +26,11 @@
                 <br>
 
 
-                <button type="submit" class="btn btn-danger btn-lg w-100 btn-block p-2"> &nbsp; Delete your account</button>
+                <button type="submit" class="btn btn-danger navbar-btn text-white"> &nbsp; Delete your account</button>
+
+                <br> <br>
+
+                <a class="btn btn-primary navbar-btn text-white" type="button"  href="{% url 'profile-management' %}"> <i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp; Go back </a>
 
             </form>
 
