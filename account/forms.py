@@ -47,5 +47,25 @@ class CreateUserForm(UserCreationForm):
             raise forms.ValidationError('Your email is too long')
         
         return email
+    
+
+# Update Form
+
+class UpdateUserForm(forms.ModelForm):
+
+    password = None
+
+    class Meta:
+
+        model = User
+
+        fields = ['username', 'email']
+        exclude = ['password1', 'password2']
+
+    def __init__(self, *args, **kwrags):
+
+        super(UpdateUserForm, self).__init__(*args, **kwrags)
+
+        self.fields['email'].required = True
 
 
