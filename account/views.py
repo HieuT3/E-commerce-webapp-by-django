@@ -47,8 +47,6 @@ def register(request):
 
             return redirect('email-verification-sent')
 
-            
-        
     context = {'form' : form}
 
     return render(request, 'account/register/register.html', context)
