@@ -16,6 +16,8 @@ from django.contrib.auth.models import auth
 
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
+
 # Register Form
 
 def register(request):
@@ -136,6 +138,7 @@ def user_logout(request):
 
         pass
 
+    messages.success(request, "Logout success!")
 
     return redirect('store')
 
@@ -159,6 +162,8 @@ def profile_management(request):
 
             user_form.save()
 
+            messages.info(request, "Account updated")
+
             return redirect('dashboard')
         
 
@@ -175,6 +180,8 @@ def delete_account(request):
     if request.method == 'POST':
 
         user.delete()
+
+        messages.error(request, "Account deleted")
 
         return redirect('store')
     
