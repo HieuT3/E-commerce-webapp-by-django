@@ -33,8 +33,6 @@
                     <h3> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i> &nbsp; Complete your order </h3>
 
                     <p> Please enter in the relevant information below. </p>
- 
-
 
                     <hr>
 
@@ -46,19 +44,15 @@
 
                     </div>
 
-
                     <br>
-
 
                     <div class="form-field">
 
                         <input class="form-control validate" id="email" type="email" placeholder="Email address*" autocomplete="off" value="{{shipping.email}}" required>
 
                     </div>
-
-                    
+                  
                     <br>
-
                     
                     <div class="form-field">
 
@@ -66,9 +60,7 @@
 
                     </div>
 
-
                     <br>
-
 
                     <div class="form-field">
 
@@ -76,9 +68,7 @@
 
                     </div>
 
-
                     <br>
-
 
                     <div class="form-field">
 
@@ -86,9 +76,7 @@
 
                     </div>
 
-
                     <br>
-
 
                     <div class="form-field">
 
@@ -96,9 +84,7 @@
 
                     </div>
 
-
                     <br>
-
 
                     <div class="form-field">
 
@@ -110,43 +96,59 @@
 
                 <br>
 
-
-
-               <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>
-               
+               <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>            
 
                 <br>
 
-
-
-
             </form>
-
 
         </div>
 
-        
-
         <br>
 
-
     </body>
-
-
-    <!-- Ajax integration -->
-
-    
 
     <script>
 
 
-    
+    $(document).on('submit', function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+
+            type: 'POST',
+
+            url: '{% url "complete-order" %}',
+
+            data: {
+                name: $('name').val(),
+                email: $('email').val(),
+
+                address1: $('address1').val(),
+                address2: $('address2').val(),
+                city: $('city').val(),
+                state: $('state').val(),
+                zipcode: $('zipcode').val(),
+
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+
+            success: function(json) {
+
+            },
+
+            error: function(xhr, err, errmsg) {
+
+            }
+
+        });
+
+    });
 
 
    </script>
-
-
-
 
 
 {% endblock %}

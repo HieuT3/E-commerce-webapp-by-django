@@ -23,6 +23,11 @@ def checkout(request):
     else:
 
         return render(request, 'payment/checkout.html')
+    
+
+def complete_order(request):
+
+    pass
 
 
 def payment_success(request):
