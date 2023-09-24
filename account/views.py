@@ -18,6 +18,9 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
+from payment.models import ShippingAddress
+from payment.forms import ShippingForm
+
 # Register Form
 
 def register(request):
@@ -186,3 +189,42 @@ def delete_account(request):
         return redirect('store')
     
     return render(request, 'account/delete-account.html')
+
+
+def manage_shipping(request):
+
+    try:
+
+        # Account user with shipping infomation
+
+        shipping = ShippingAddress.objects.get(user=request.user.id)
+
+    except ShippingAddress.DoesNotExist:
+
+        shipping = None
+
+    form = ShippingForm(instance=shipping)
+
+    if request.method == 'POST':
+
+        form = ShippingForm(request.POST, instance=shipping)
+
+        if form.is_valid():
+
+            # Assign the user FK on the object
+
+            shipping_user = form.save(commit=False)
+
+            # Adding the PK itself
+
+            shipping_user.user = request.user
+
+            shipping_user.save()
+
+            return redirect('dashboard')
+        
+
+    context = {'form' : form}
+
+    return render(request, 'account/manage-shipping.html')
+
